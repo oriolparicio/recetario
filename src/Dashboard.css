@@ -1,19 +1,19 @@
-.App {
+.Dashboard {
   text-align: center;
 }
 
-.App-logo {
+.Dashboard-logo {
   height: 40vmin;
   pointer-events: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+  .Dashboard-logo {
+    animation: Dashboard-logo-spin infinite 20s linear;
   }
 }
 
-.App-header {
+.Dashboard-header {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -24,14 +24,15 @@
   color: white;
 }
 
-.App-link {
+.Dashboard-link {
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
+@keyframes Dashboard-logo-spin {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
