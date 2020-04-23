@@ -13,6 +13,7 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  Link,
 } from "@material-ui/core";
 
 import MenuIcon from "@material-ui/icons/Menu";
@@ -24,9 +25,6 @@ import MailIcon from "@material-ui/icons/Mail";
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-  },
   appBar: {
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.sharp,
@@ -43,6 +41,9 @@ const useStyles = makeStyles((theme) => ({
   },
   menuButton: {
     marginRight: theme.spacing(2),
+  },
+  show: {
+    display: "block",
   },
   hide: {
     display: "none",
@@ -80,7 +81,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PersistentDrawerLeft() {
+const routes = [
+  {
+    title: "Productos",
+    path: "/pagina1",
+  },
+  {
+    title: "Starred",
+    path: "/pagina2",
+  },
+  {
+    title: "Send email",
+    path: "/pagina1",
+  },
+  {
+    title: "Drafts",
+    path: "/pagina2",
+  },
+];
+
+export default function NavBarDrawer() {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -92,6 +112,8 @@ export default function PersistentDrawerLeft() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const hideIcon = open ? classes.hide : classes.show;
 
   return (
     <div className={classes.root}>
@@ -108,7 +130,7 @@ export default function PersistentDrawerLeft() {
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
-            className={clsx(classes.menuButton, open && classes.hide)}
+            className={clsx(classes.menuButton, hideIcon)}
           >
             <MenuIcon />
           </IconButton>
@@ -137,17 +159,20 @@ export default function PersistentDrawerLeft() {
         </div>
         <Divider />
         <List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
+          {routes.map((route, index) => (
+            <Link href={route.path}>
+              <ListItem button key={route.title}>
+                <ListItemIcon>
+                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                </ListItemIcon>
+
+                <ListItemText primary={route.title} />
+              </ListItem>
+            </Link>
           ))}
         </List>
         <Divider />
-        <List>
+        <List href="">
           {["All mail", "Trash", "Spam"].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>

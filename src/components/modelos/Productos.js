@@ -13,14 +13,23 @@ class Producto {
   //   // Productos.push(this);
   // }
 
-  static getProductos = () => {
+  static getProductos = (idProducto) => {
+    let elProducto = Productos.filter((el) => el.id === idProducto);
     return Productos;
   };
 
   static addProducto = (nombreProducto) => {
-    let nuevoId = Productos.lenght + 1;
+    let max = 0;
+    Productos.forEach((el) => {
+      max = max < el.id ? el.id : max;
+    });
+    let nuevoId = max + 1;
     let productoNuevo = { id: nuevoId, nombre: nombreProducto };
     return productoNuevo.push();
+  };
+
+  static eliminarProducto = (idBorrar) => {
+    Productos = Productos.filter((el) => el.id !== idBorrar);
   };
 }
 export default Producto;
