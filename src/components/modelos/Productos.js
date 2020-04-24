@@ -14,7 +14,7 @@ class Producto {
   // }
 
   static getProductos = (idProducto) => {
-    let elProducto = Productos.filter((el) => el.id === idProducto);
+    // let elProducto = Productos.filter((el) => el.id === idProducto);
     return Productos;
   };
 
@@ -28,8 +28,8 @@ class Producto {
   //   Productos.push(productoNuevo);
   // };
 
-  static eliminarProducto = (idBorrar) => {
-    Productos = Productos.filter((el) => el.id !== idBorrar);
-  };
+  // static eliminarProducto = (idBorrar) => {
+  //   Productos = Productos.filter((el) => el.id !== idBorrar);
+  // };
 }
 export default Producto;

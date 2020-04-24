@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 import {
@@ -27,24 +27,25 @@ export default function Pagina1() {
     productos: Producto.getProductos(),
     nombreProducto: "",
   });
-
+  const [nameProduct, setNameProduct] = React.useState("");
+  //
   // let productos = Producto.getProductos();
 
   // INPUT CHANGE //
-  function handleInputChange(evento) {
-    const target = evento.target;
-    //const value = (target.type === 'checkbox') ? target.checked : target.value;
-    const value = target.value;
-    const name = target.name;
-    setState({
-      productos: state.productos,
-      [name]: value,
-    });
-  }
+  // function handleInputChange(evento) {
+  //   const target = evento.target;
+  //   //const value = (target.type === 'checkbox') ? target.checked : target.value;
+  //   const value = target.value;
+  //   const name = target.name;
+  //   setState({
+  //     productos: state.productos,
+  //     [name]: value,
+  //   });
+  // }
 
   // PRODUCTO NUEVO //
   function productoNuevo() {
-    let nombreProducto = state.nombreProducto;
+    let nombreProducto = nameProduct;
     let productos = state.productos;
     let nuevoId = productos.length + 1;
     let productoNuevo = { id: nuevoId, nombre: nombreProducto };
@@ -82,12 +83,15 @@ export default function Pagina1() {
       <br />
       <TextField
         id="outlined-secondary"
-        label="Outlined secondary"
+        label="Nombre del Ingrediente"
         variant="outlined"
         color="primary"
         fullWidth
-        onChange={handleInputChange}
-        name="nombreProducto"
+        value={nameProduct}
+        type="text"
+        onChange={(e) => setNameProduct(e.target.value)}
+        name="nameProduct"
+        required
       />
       <br />
       <br />
