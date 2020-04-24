@@ -25,21 +25,23 @@ export default function Pagina1() {
   const classes = useStyles();
   const [product, setProduct] = React.useState({
     productos: Producto.getProductos(),
-    nombreProducto: "",
   });
 
-  const [nameProduct, setNameProduct] = React.useState("");
+  const [nameProduct, setNameProduct] = React.useState({ name: "" });
   let productos = product.productos;
 
   // PRODUCTO NUEVO //
   function productoNuevo() {
-    let nombreProducto = nameProduct;
-    let nuevoId = productos.length + 1;
-    let productoNuevo = { id: nuevoId, nombre: nombreProducto };
+    let max = 0;
+    productos.forEach((el) => {
+      max = max < el.id ? el.id : max;
+    });
+    let nuevoId = max + 1;
+    let productoNuevo = { id: nuevoId, nombre: nameProduct };
     productos.push(productoNuevo);
 
-    setProduct({
-      productos: productos,
+    setNameProduct({
+      name: "",
     });
   }
 
@@ -48,7 +50,7 @@ export default function Pagina1() {
     productos = productos.filter((el) => el.id !== idBorrar);
   }
   function borra(id) {
-    eliminarProducto(id);
+    eliminarProducto(id * 1);
     setProduct({
       productos: productos,
     });
@@ -88,7 +90,7 @@ export default function Pagina1() {
         variant="outlined"
         color="primary"
         fullWidth
-        value={nameProduct}
+        value={nameProduct.name}
         type="text"
         onChange={(e) => setNameProduct(e.target.value)}
         name="nameProduct"
