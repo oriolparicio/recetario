@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 import {
@@ -23,46 +23,47 @@ const useStyles = makeStyles({
 
 export default function Pagina1() {
   const classes = useStyles();
-  const [state, setState] = React.useState({
+  const [product, setProduct] = React.useState({
     productos: Producto.getProductos(),
     nombreProducto: "",
   });
-  const [nameProduct, setNameProduct] = React.useState("");
-  //
-  // let productos = Producto.getProductos();
 
-  // INPUT CHANGE //
-  // function handleInputChange(evento) {
-  //   const target = evento.target;
-  //   //const value = (target.type === 'checkbox') ? target.checked : target.value;
-  //   const value = target.value;
-  //   const name = target.name;
-  //   setState({
-  //     productos: state.productos,
-  //     [name]: value,
-  //   });
-  // }
+  const [nameProduct, setNameProduct] = React.useState("");
+  let productos = product.productos;
 
   // PRODUCTO NUEVO //
   function productoNuevo() {
     let nombreProducto = nameProduct;
-    let productos = state.productos;
     let nuevoId = productos.length + 1;
     let productoNuevo = { id: nuevoId, nombre: nombreProducto };
     productos.push(productoNuevo);
 
-    setState({
+    setProduct({
+      productos: productos,
+    });
+  }
+
+  // ELIMINAR PRODUCTO //
+  function eliminarProducto(idBorrar) {
+    productos = productos.filter((el) => el.id !== idBorrar);
+  }
+  function borra(id) {
+    eliminarProducto(id);
+    setProduct({
       productos: productos,
     });
   }
 
   // LISTA DE PRODUCTOS //
-  let lista = state.productos.map((el) => (
+  let lista = product.productos.map((el) => (
     <TableRow key={el.id}>
       <TableCell align="center" component="th" scope="row">
         {el.id}
       </TableCell>
       <TableCell align="center">{el.nombre}</TableCell>
+      <TableCell align="center">
+        <Button onClick={(e) => borra(el.id)}>Borra</Button>
+      </TableCell>
     </TableRow>
   ));
   // ----------------------- //
@@ -96,6 +97,7 @@ export default function Pagina1() {
       <br />
       <br />
       <Button
+        disabled={nameProduct.length < 2}
         onClick={productoNuevo}
         variant="contained"
         color="primary"
