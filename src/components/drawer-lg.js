@@ -84,19 +84,19 @@ const useStyles = makeStyles((theme) => ({
 const routes = [
   {
     title: "Productos",
-    path: "/pagina1",
+    path: "/productos",
   },
   {
-    title: "Starred",
-    path: "/pagina2",
+    title: "Recetas",
+    path: "/recetas",
   },
   {
-    title: "Send email",
-    path: "/pagina1",
+    title: "Lo que tu quieras",
+    path: "/productos",
   },
   {
-    title: "Drafts",
-    path: "/pagina2",
+    title: "Otro mas",
+    path: "/recetas",
   },
 ];
 
@@ -169,17 +169,6 @@ export default function NavBarDrawer() {
                 <ListItemText primary={route.title} />
               </ListItem>
             </Link>
-          ))}
-        </List>
-        <Divider />
-        <List href="">
-          {["All mail", "Trash", "Spam"].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
           ))}
         </List>
       </Drawer>

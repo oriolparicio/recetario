@@ -18,15 +18,15 @@ class Producto {
     return Productos;
   };
 
-  static addProducto = (nombreProducto) => {
-    let max = 0;
-    Productos.forEach((el) => {
-      max = max < el.id ? el.id : max;
-    });
-    let nuevoId = max + 1;
-    let productoNuevo = { id: nuevoId, nombre: nombreProducto };
-    return productoNuevo.push();
-  };
+  // static addProducto = (nombreProducto) => {
+  //   // let max = 0;
+  //   // Productos.forEach((el) => {
+  //   //   max = max < el.id ? el.id : max;
+  //   // });
+  //   let nuevoId = Productos.length + 1;
+  //   let productoNuevo = { id: nuevoId, nombre: nombreProducto };
+  //   Productos.push(productoNuevo);
+  // };
 
   static eliminarProducto = (idBorrar) => {
     Productos = Productos.filter((el) => el.id !== idBorrar);

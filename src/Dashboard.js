@@ -4,25 +4,15 @@ import { makeStyles } from "@material-ui/core/styles";
 import { CssBaseline, Hidden } from "@material-ui/core";
 
 import NavBarDrawer from "./components/drawer-lg.js";
-import Producto from "./components/modelos/Productos.js";
 
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
-import Pagina1 from "./components/pages/Pagina1";
-import Pagina2 from "./components/pages/Pagina2";
+import PageProductos from "./components/pages/PageProductos";
+import PageRecetas from "./components/pages/PageRecetas";
 import Inicio from "./components/pages/Inicio";
 import Error404 from "./components/pages/Error404";
 
-import {
-  Container,
-  TableContainer,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-  Paper,
-} from "@material-ui/core";
+import { Container } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -54,9 +44,9 @@ export default function PersistentDrawerLeft() {
 
           <Switch>
             <Route exact path="/" component={Inicio} />
-            <Route path="/pagina1" component={Pagina1} />
-            <Route path="/pagina2" component={Pagina2} />
-            <Route path="/EditaReceta/:idReceta" component={Pagina2} />
+            <Route path="/productos" component={PageProductos} />
+            <Route path="/recetas" component={PageRecetas} />
+            <Route path="/EditaReceta/:idReceta" component={PageRecetas} />
             <Route component={Error404} />
           </Switch>
         </Container>

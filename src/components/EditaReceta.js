@@ -7,7 +7,6 @@ export default class EditaReceta extends React.Components {
     this.state = {
       id: this.props.match.params.idReceta,
     };
-
   }
 
   render() {
