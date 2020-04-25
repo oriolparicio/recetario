@@ -10,6 +10,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import PageProductos from "./components/pages/PageProductos";
 import PageRecetas from "./components/pages/PageRecetas";
 import Inicio from "./components/pages/Inicio";
+import PageRecetasEdit from "./components/pages/PageRecetasEdit";
 import Error404 from "./components/pages/Error404";
 
 import { Container } from "@material-ui/core";
@@ -46,7 +47,7 @@ export default function PersistentDrawerLeft() {
             <Route exact path="/" component={Inicio} />
             <Route path="/productos" component={PageProductos} />
             <Route path="/recetas" component={PageRecetas} />
-            <Route path="/EditaReceta/:idReceta" component={PageRecetas} />
+            <Route path="/editaReceta/:idReceta" component={PageRecetasEdit} />
             <Route component={Error404} />
           </Switch>
         </Container>

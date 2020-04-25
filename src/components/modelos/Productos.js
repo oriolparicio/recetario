@@ -15,7 +15,11 @@ class Producto {
 
   static getProductos = (idProducto) => {
     // let elProducto = Productos.filter((el) => el.id === idProducto);
-    return Productos;
+    if (localStorage.getItem("productsList") === null) {
+      return Productos;
+    } else {
+      return JSON.parse(localStorage.getItem("productsList"));
+    }
   };
 
   // static addProducto = (nombreProducto) => {

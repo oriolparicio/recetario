@@ -43,6 +43,7 @@ export default function Pagina1() {
     setNameProduct({
       name: "",
     });
+    localStorage.setItem("productsList", JSON.stringify(productos));
   }
 
   // ELIMINAR PRODUCTO //
@@ -54,6 +55,7 @@ export default function Pagina1() {
     setProduct({
       productos: productos,
     });
+    localStorage.setItem("productsList", JSON.stringify(productos));
   }
 
   // LISTA DE PRODUCTOS //
