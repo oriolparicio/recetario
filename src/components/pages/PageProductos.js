@@ -14,6 +14,8 @@ import {
   TextField,
 } from "@material-ui/core";
 import Producto from "../modelos/Productos.js";
+import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@material-ui/icons/Edit";
 
 const useStyles = makeStyles({
   table: {
@@ -48,15 +50,21 @@ export default function Pagina1() {
 
   // ELIMINAR PRODUCTO //
   function eliminarProducto(idBorrar) {
+    deletedProducts.push(productos.find((el) => el.id === idBorrar));
     productos = productos.filter((el) => el.id !== idBorrar);
+    console.log(deletedProducts);
   }
   function borra(id) {
     eliminarProducto(id * 1);
     setProduct({
       productos: productos,
     });
+
     localStorage.setItem("productsList", JSON.stringify(productos));
   }
+
+  // DESHACER BORRAR //
+  let deletedProducts = [];
 
   // LISTA DE PRODUCTOS //
   let lista = product.productos.map((el) => (
@@ -66,7 +74,13 @@ export default function Pagina1() {
       </TableCell>
       <TableCell align="center">{el.nombre}</TableCell>
       <TableCell align="center">
-        <Button onClick={(e) => borra(el.id)}>Borra</Button>
+        <Button onClick={(e) => borra(el.id)}>
+          {" "}
+          <DeleteIcon color="primary"></DeleteIcon>
+        </Button>
+        <Button>
+          <EditIcon color="primary"></EditIcon>
+        </Button>
       </TableCell>
     </TableRow>
   ));

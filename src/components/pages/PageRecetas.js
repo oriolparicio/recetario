@@ -92,7 +92,7 @@ export default function Pagina2() {
           <DeleteIcon color="primary"></DeleteIcon>
         </Button>
         <Link href={"/editaReceta/" + el.id}>
-          <Button onClick={(e) => borra(el.id)}>
+          <Button>
             <EditIcon color="primary"></EditIcon>
           </Button>
         </Link>

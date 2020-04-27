@@ -6,6 +6,7 @@ let Productos = [
   { id: 5, nombre: "Sal" },
 ];
 
+
 class Producto {
   // constructor(nombreProducto) {
   //   this.nombre = nombreProducto;
