@@ -12,16 +12,18 @@ import {
   Paper,
   Button,
   TextField,
+  Box,
 } from "@material-ui/core";
 import Producto from "../modelos/Productos.js";
 import DeleteIcon from "@material-ui/icons/Delete";
-import EditIcon from "@material-ui/icons/Edit";
-
+import ReplayIcon from "@material-ui/icons/Replay";
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
   },
 });
+
+let deletedProducts = [];
 
 export default function Pagina1() {
   const classes = useStyles();
@@ -64,7 +66,14 @@ export default function Pagina1() {
   }
 
   // DESHACER BORRAR //
-  let deletedProducts = [];
+  function undo() {
+    productos.push(deletedProducts[deletedProducts.length - 1]);
+    deletedProducts.pop();
+    setProduct({
+      productos: productos,
+    });
+    localStorage.setItem("productsList", JSON.stringify(productos));
+  }
 
   // LISTA DE PRODUCTOS //
   let lista = product.productos.map((el) => (
@@ -78,51 +87,59 @@ export default function Pagina1() {
           {" "}
           <DeleteIcon color="primary"></DeleteIcon>
         </Button>
-        <Button>
-          <EditIcon color="primary"></EditIcon>
-        </Button>
       </TableCell>
     </TableRow>
   ));
   // ----------------------- //
   return (
     <Container>
-      <h1>Productos</h1>
-      <TableContainer component={Paper}>
-        <Table className={classes.table} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell align="center">ID</TableCell>
-              <TableCell align="center">Nombre</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>{lista}</TableBody>
-        </Table>
-      </TableContainer>
-      <br />
-      <TextField
-        id="outlined-secondary"
-        label="Nombre del Ingrediente"
-        variant="outlined"
-        color="primary"
-        fullWidth
-        value={nameProduct.name}
-        type="text"
-        onChange={(e) => setNameProduct(e.target.value)}
-        name="nameProduct"
-        required
-      />
-      <br />
-      <br />
-      <Button
-        disabled={nameProduct.length < 2}
-        onClick={productoNuevo}
-        variant="contained"
-        color="primary"
-        fullWidth
-      >
-        Añadir
-      </Button>
+      <Box position="relative">
+        <h1>Productos</h1>
+        <Box
+          position="absolute"
+          right={0}
+          display={deletedProducts.length === 0 ? "none" : "inline"}
+        >
+          <Button onClick={undo}>
+            <ReplayIcon color="primary"></ReplayIcon>
+          </Button>
+        </Box>
+        <TableContainer component={Paper}>
+          <Table className={classes.table} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell align="center">ID</TableCell>
+                <TableCell align="center">Nombre</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>{lista}</TableBody>
+          </Table>
+        </TableContainer>
+        <br />
+        <TextField
+          id="outlined-secondary"
+          label="Nombre del Ingrediente"
+          variant="outlined"
+          color="primary"
+          fullWidth
+          value={nameProduct.name}
+          type="text"
+          onChange={(e) => setNameProduct(e.target.value)}
+          name="nameProduct"
+          required
+        />
+        <br />
+        <br />
+        <Button
+          disabled={nameProduct.length < 2}
+          onClick={productoNuevo}
+          variant="contained"
+          color="primary"
+          fullWidth
+        >
+          Añadir
+        </Button>
+      </Box>
     </Container>
   );
 }

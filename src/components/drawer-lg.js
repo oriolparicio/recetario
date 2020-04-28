@@ -160,8 +160,8 @@ export default function NavBarDrawer() {
         <Divider />
         <List>
           {routes.map((route, index) => (
-            <Link href={route.path}>
-              <ListItem button key={route.title}>
+            <Link href={route.path} key={index}>
+              <ListItem button>
                 <ListItemIcon>
                   {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                 </ListItemIcon>

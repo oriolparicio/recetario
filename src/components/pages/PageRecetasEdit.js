@@ -21,6 +21,7 @@ import {
 } from "@material-ui/core";
 import Recetas from "../modelos/Recetas.js";
 import Producto from "../modelos/Productos.js";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 const useStyles = makeStyles({
   table: {
@@ -41,7 +42,7 @@ export default function Pagina2(props) {
     unidades: recipeToEdit.unidades,
   });
 
-  const [product, setProduct] = React.useState({
+  const [product] = React.useState({
     productos: Producto.getProductos(),
     unidad: Recetas.getUnidades(),
   });
@@ -109,12 +110,30 @@ export default function Pagina2(props) {
     });
   }
 
+  //   // ELIMINAR INGREDIENTE //
+  // function eliminarReceta(idBorrar) {
+  //   receta.ingredientes.find((el) => el.id === idBorrar);
+  //   receta.cantidad.find((el) => el.id === idBorrar);
+  //   receta.unidades.find((el) => el.id === idBorrar);
+  //   // recetas.ingredientes = recetas.ingredientes.filter(
+  //   //   (el) => el.id !== idBorrar
+  //   // );
+  // }
+  // function borra(id) {
+  //   eliminarReceta(id * 1);
+  //   setReceta({
+  //     ...receta,
+  //     ingredientes: receta.ingredientes,
+  //   });
+  //   localStorage.setItem("recipeList", JSON.stringify(recipeToEdit));
+  // }
+
   function save() {
     let name = select.name;
     let desc = select.desc;
     recipeToEdit.nombre = name;
     recipeToEdit.descripcion = desc;
-    
+
     Recetas.storeRecipes();
   }
 
@@ -163,20 +182,28 @@ export default function Pagina2(props) {
       </ListItem>
     </List>
   ));
+  let deleteIconMap = receta.unidades.map((el) => (
+    <List>
+      <ListItem>
+        <Box width="100%" boxShadow={1}>
+          <ListItemText
+            primary={
+              <Button>
+                <DeleteIcon color="primary"></DeleteIcon>
+              </Button>
+            }
+            align="center"
+          />
+        </Box>
+      </ListItem>
+    </List>
+  ));
   // ----------------------- //
+  let ingrSelect = document.getElementById("ingrSelect");
   return (
     <Container>
       <h1>Editando receta....{receta.id}</h1>
 
-      <Button
-        // disabled={newRecipe.name.length < 2}
-        // onClick={recetaNueva}
-        variant="contained"
-        color="primary"
-        fullWidth
-      >
-        Añadir
-      </Button>
       <br />
       <br />
       {/* <TextField
@@ -212,6 +239,7 @@ export default function Pagina2(props) {
               <TableCell align="center">Ingredientes</TableCell>
               <TableCell align="center">Cantidad</TableCell>
               <TableCell align="center">Unidad</TableCell>
+              <TableCell align="center"></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -249,6 +277,7 @@ export default function Pagina2(props) {
               <TableCell align="center">{ingredientes}</TableCell>
               <TableCell align="center">{cantidad}</TableCell>
               <TableCell align="center">{unidades}</TableCell>
+              <TableCell align="center">{deleteIconMap}</TableCell>
             </TableRow>
             <TableRow>
               <TableCell></TableCell>
@@ -264,7 +293,7 @@ export default function Pagina2(props) {
                         defaultValue={30}
                         onChange={(e) => handleChange(e, "ingredientes")}
                       >
-                        <option aria-label="None" value="" />
+                        <option aria-label="None" value="" id="optionNone" />
                         {productos.map((el) => (
                           <option>{el.nombre}</option>
                         ))}
@@ -315,6 +344,11 @@ export default function Pagina2(props) {
                   variant="contained"
                   color="primary"
                   onClick={añadirIngrediente}
+                  disabled={
+                    select.ingr === "" ||
+                    select.uds === "" ||
+                    select.cant === ""
+                  }
                 >
                   Añadir
                 </Button>

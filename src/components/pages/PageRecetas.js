@@ -13,9 +13,11 @@ import {
   Button,
   TextField,
   Link,
+  Box,
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
+import ReplayIcon from "@material-ui/icons/Replay";
 import Recetas from "../modelos/Recetas.js";
 
 const useStyles = makeStyles({
@@ -23,6 +25,8 @@ const useStyles = makeStyles({
     minWidth: 650,
   },
 });
+
+let deletedRecipes = [];
 
 export default function Pagina2() {
   const classes = useStyles();
@@ -36,7 +40,7 @@ export default function Pagina2() {
   });
   let recetas = recipe.recetas;
 
-  // PRODUCTO NUEVO //
+  // RECETA NUEVA //
   function recetaNueva() {
     let max = 0;
     recetas.forEach((el) => {
@@ -47,6 +51,9 @@ export default function Pagina2() {
       id: nuevoId,
       nombre: newRecipe.name,
       descripcion: newRecipe.description,
+      ingredientes: [],
+      cantidad: [],
+      unidades: [],
     };
     recetas.push(recetaNueva);
 
@@ -54,7 +61,9 @@ export default function Pagina2() {
       name: "",
       description: "",
     });
+    localStorage.setItem("recipeList", JSON.stringify(recetas));
   }
+
   function updateNewRecipeName(name) {
     setNewRecipe({
       name: name,
@@ -70,6 +79,7 @@ export default function Pagina2() {
 
   // ELIMINAR PRODUCTO //
   function eliminarReceta(idBorrar) {
+    deletedRecipes.push(recetas.find((el) => el.id === idBorrar));
     recetas = recetas.filter((el) => el.id !== idBorrar);
   }
   function borra(id) {
@@ -77,6 +87,17 @@ export default function Pagina2() {
     setRecipe({
       recetas: recetas,
     });
+    localStorage.setItem("recipeList", JSON.stringify(recetas));
+  }
+
+  // DESHACER BORRAR //
+  function undo() {
+    recetas.push(deletedRecipes[deletedRecipes.length - 1]);
+    deletedRecipes.pop();
+    setRecipe({
+      recetas: recetas,
+    });
+    localStorage.setItem("recipeList", JSON.stringify(recetas));
   }
 
   // LISTA DE PRODUCTOS //
@@ -101,59 +122,70 @@ export default function Pagina2() {
   ));
   // ----------------------- //
   return (
-    <Container>
-      <h1>Recetas</h1>
-      <TableContainer component={Paper}>
-        <Table className={classes.table} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell align="center">ID</TableCell>
-              <TableCell align="center">Nombre</TableCell>
-              <TableCell align="center">Descripción</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>{lista}</TableBody>
-        </Table>
-      </TableContainer>
-      <br />
-      <TextField
-        className="mb-2"
-        id="outlined-secondary"
-        label="Nombre de la receta"
-        variant="outlined"
-        color="primary"
-        fullWidth
-        value={newRecipe.name}
-        type="text"
-        onChange={(e) => updateNewRecipeName(e.target.value)}
-        name="name"
-        required
-      />
-      <br />
-      <br />
-      <TextField
-        id="outlined-secondary"
-        label="Descripción..."
-        variant="outlined"
-        color="primary"
-        fullWidth
-        value={newRecipe.description}
-        type="text"
-        onChange={(e) => updateNewRecipeDesc(e.target.value)}
-        name="description"
-        required
-      />
-      <br />
-      <br />
-      <Button
-        disabled={newRecipe.name.length < 2}
-        onClick={recetaNueva}
-        variant="contained"
-        color="primary"
-        fullWidth
-      >
-        Añadir
-      </Button>
+    <Container position="relative">
+      <Box position="relative">
+        <h1>Recetas</h1>
+        <Box
+          position="absolute"
+          right={0}
+          display={deletedRecipes.length === 0 ? "none" : "inline"}
+        >
+          <Button onClick={undo}>
+            <ReplayIcon color="primary"></ReplayIcon>
+          </Button>
+        </Box>
+        <TableContainer component={Paper}>
+          <Table className={classes.table} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell align="center">ID</TableCell>
+                <TableCell align="center">Nombre</TableCell>
+                <TableCell align="center">Descripción</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>{lista}</TableBody>
+          </Table>
+        </TableContainer>
+        <br />
+        <TextField
+          className="mb-2"
+          id="outlined-secondary"
+          label="Nombre de la receta"
+          variant="outlined"
+          color="primary"
+          fullWidth
+          value={newRecipe.name}
+          type="text"
+          onChange={(e) => updateNewRecipeName(e.target.value)}
+          name="name"
+          required
+        />
+        <br />
+        <br />
+        <TextField
+          id="outlined-secondary"
+          label="Descripción..."
+          variant="outlined"
+          color="primary"
+          fullWidth
+          value={newRecipe.description}
+          type="text"
+          onChange={(e) => updateNewRecipeDesc(e.target.value)}
+          name="description"
+          required
+        />
+        <br />
+        <br />
+        <Button
+          disabled={newRecipe.name.length < 2}
+          onClick={recetaNueva}
+          variant="contained"
+          color="primary"
+          fullWidth
+        >
+          Añadir
+        </Button>
+      </Box>
     </Container>
   );
 }
