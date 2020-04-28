@@ -90,14 +90,6 @@ const routes = [
     title: "Recetas",
     path: "/recetas",
   },
-  {
-    title: "Lo que tu quieras",
-    path: "/productos",
-  },
-  {
-    title: "Otro mas",
-    path: "/recetas",
-  },
 ];
 
 export default function NavBarDrawer() {
