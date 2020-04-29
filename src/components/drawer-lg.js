@@ -13,8 +13,9 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  Link,
 } from "@material-ui/core";
+
+import { Link } from "react-router-dom";
 
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
@@ -78,6 +79,10 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.enteringScreen,
     }),
     marginLeft: 0,
+  },
+  linkStyle: {
+    textDecoration: "none",
+    color: "#000",
   },
 }));
 
@@ -152,7 +157,7 @@ export default function NavBarDrawer() {
         <Divider />
         <List>
           {routes.map((route, index) => (
-            <Link href={route.path} key={index}>
+            <Link to={route.path} key={index} className={classes.linkStyle}>
               <ListItem button>
                 <ListItemIcon>
                   {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}

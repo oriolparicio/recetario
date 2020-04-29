@@ -12,9 +12,10 @@ import {
   Paper,
   Button,
   TextField,
-  Link,
   Box,
 } from "@material-ui/core";
+import { Link } from "react-router-dom";
+
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import ReplayIcon from "@material-ui/icons/Replay";
@@ -112,7 +113,7 @@ export default function Pagina2() {
         <Button onClick={(e) => borra(el.id)}>
           <DeleteIcon color="primary"></DeleteIcon>
         </Button>
-        <Link href={"/editaReceta/" + el.id}>
+        <Link to={"/editaReceta/" + el.id}>
           <Button>
             <EditIcon color="primary"></EditIcon>
           </Button>

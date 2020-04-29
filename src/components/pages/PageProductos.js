@@ -22,7 +22,6 @@ const useStyles = makeStyles({
     minWidth: 650,
   },
 });
-
 let deletedProducts = [];
 
 export default function Pagina1() {
