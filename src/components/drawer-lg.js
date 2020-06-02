@@ -20,8 +20,8 @@ import { Link } from "react-router-dom";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
+import DynamicFeedIcon from '@material-ui/icons/DynamicFeed';
+import FastfoodIcon from '@material-ui/icons/Fastfood';
 
 const drawerWidth = 240;
 
@@ -132,7 +132,7 @@ export default function NavBarDrawer() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Persistent drawer
+            Recetario
           </Typography>
         </Toolbar>
       </AppBar>
@@ -150,8 +150,8 @@ export default function NavBarDrawer() {
             {theme.direction === "ltr" ? (
               <ChevronLeftIcon />
             ) : (
-              <ChevronRightIcon />
-            )}
+                <ChevronRightIcon />
+              )}
           </IconButton>
         </div>
         <Divider />
@@ -160,7 +160,7 @@ export default function NavBarDrawer() {
             <Link to={route.path} key={index} className={classes.linkStyle}>
               <ListItem button>
                 <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  {index % 2 === 0 ? <FastfoodIcon /> : <DynamicFeedIcon />}
                 </ListItemIcon>
 
                 <ListItemText primary={route.title} />

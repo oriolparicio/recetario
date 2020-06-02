@@ -21,6 +21,16 @@ const useStyles = makeStyles({
   table: {
     minWidth: 650,
   },
+  pageTitle: {
+    fontWeight: 100,
+    color: "rgba(0, 0, 0, 0.87)",
+  },
+  tableRowStyle: {
+    transition: "0.3s",
+    "&:hover, &:focus": {
+      backgroundColor: "#E6E6E6"
+    },
+  }
 });
 let deletedProducts = [];
 
@@ -76,7 +86,7 @@ export default function Pagina1() {
 
   // LISTA DE PRODUCTOS //
   let lista = product.productos.map((el) => (
-    <TableRow key={el.id}>
+    <TableRow key={el.id} className={classes.tableRowStyle}>
       <TableCell align="center" component="th" scope="row">
         {el.id}
       </TableCell>
@@ -93,7 +103,7 @@ export default function Pagina1() {
   return (
     <Container>
       <Box position="relative">
-        <h1>Productos</h1>
+        <h1 className={classes.pageTitle}>Productos</h1>
         <Box
           position="absolute"
           right={0}

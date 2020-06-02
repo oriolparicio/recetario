@@ -13,6 +13,8 @@ import {
   Button,
   TextField,
   Box,
+  ListItem,
+  Typography,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
@@ -25,6 +27,21 @@ const useStyles = makeStyles({
   table: {
     minWidth: 650,
   },
+  pageTitle: {
+    fontWeight: 100,
+    color: "rgba(0, 0, 0, 0.87)",
+  },
+  textFromRecipes: {
+    textAlign: "center",
+    width: "100%",
+    fontSize: "0.875rem",
+  },
+  tableRowStyle: {
+    transition: "0.3s",
+    "&:hover, &:focus": {
+      backgroundColor: "#E6E6E6"
+    },
+  }
 });
 
 let deletedRecipes = [];
@@ -103,12 +120,21 @@ export default function Pagina2() {
 
   // LISTA DE PRODUCTOS //
   let lista = recipe.recetas.map((el) => (
-    <TableRow key={el.id}>
+    <TableRow key={el.id} className={classes.tableRowStyle}>
       <TableCell align="center" component="th" scope="row">
         {el.id}
       </TableCell>
       <TableCell align="center">{el.nombre}</TableCell>
       <TableCell align="center">{el.descripcion}</TableCell>
+      <TableCell align="center">{el.ingredientes.map((el, i) => {
+        return (<ListItem style={{ textAlign: "center" }}><Typography className={classes.textFromRecipes}>{el}</Typography></ListItem>);
+      })}</TableCell>
+      <TableCell align="center">{el.cantidad.map((el, i) => {
+        return (<ListItem style={{ textAlign: "center" }}><Typography className={classes.textFromRecipes}>{el}</Typography></ListItem>);
+      })}</TableCell>
+      <TableCell align="center">{el.unidades.map((el, i) => {
+        return (<ListItem style={{ textAlign: "center" }}><Typography className={classes.textFromRecipes}>{el}</Typography></ListItem>);
+      })}</TableCell>
       <TableCell align="center">
         <Button onClick={(e) => borra(el.id)}>
           <DeleteIcon color="primary"></DeleteIcon>
@@ -125,7 +151,7 @@ export default function Pagina2() {
   return (
     <Container position="relative">
       <Box position="relative">
-        <h1>Recetas</h1>
+        <h1 className={classes.pageTitle}>Recetas</h1>
         <Box
           position="absolute"
           right={0}
@@ -142,6 +168,9 @@ export default function Pagina2() {
                 <TableCell align="center">ID</TableCell>
                 <TableCell align="center">Nombre</TableCell>
                 <TableCell align="center">Descripción</TableCell>
+                <TableCell align="center">Ingredientes</TableCell>
+                <TableCell align="center">Cantidad</TableCell>
+                <TableCell align="center">Unidad</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>{lista}</TableBody>
@@ -171,6 +200,7 @@ export default function Pagina2() {
           fullWidth
           value={newRecipe.description}
           type="text"
+          multiline
           onChange={(e) => updateNewRecipeDesc(e.target.value)}
           name="description"
           required

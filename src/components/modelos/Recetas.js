@@ -13,7 +13,7 @@ let Recetas = [
     descripcion: "Poner el huevo en la sarten...",
     ingredientes: ["Harina", "Huevo", "Levadura"],
     cantidad: ["100", "2", "10"],
-    unidades: ["g", "uds", "g"],
+    unidades: ["gramos", "unidades", "gramos"],
   },
 ];
 let Unidades = [
